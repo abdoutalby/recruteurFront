@@ -17,11 +17,10 @@ function AnnonceCard({annonce}) {
       navigate("/login");
     } 
 
-    return () => {
-      dispatch(reset());
-    };
   }, [navigate, dispatch]);
-  return (
+
+
+   return (
     <>
       <div className='col-lg-4 col-md-6 col-12 mt-4 pt-2'>
         <div className='card service-wrapper rounded border-0 shadow p-4'>
@@ -48,14 +47,16 @@ function AnnonceCard({annonce}) {
             </span>
           </div>
           <div className='content mt-4'>
-            <h5 className='title'></h5>
+            <h5 className='title'>{annonce.title}</h5>
             <p className='text-muted mt-3 mb-0'>Specialite: {annonce.specialite}</p>
             <p className='text-muted mt-3 mb-0'></p>
-            <p className='text-muted mt-3 mb-0'>DT</p>
+            <p className='text-muted mt-3 mb-0'>{annonce.salary}DT</p>
 
             <div className='mt-3'>
-              <span className='text-custom '>
-                Postuler <i className='mdi mdi-chevron-right' />
+              <span className='text-custom ' onClick={()=>{
+                navigate('/MyOffres/'+annonce._id)
+  }}>
+                Consulter <i className='mdi mdi-chevron-right' />
               </span>
             </div>
           </div>

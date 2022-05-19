@@ -1,63 +1,60 @@
-import React from 'react'
+import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getAll, getAnnonceByrec, reset } from '../features/annonce/annonceSlice';
-import AnnonceCard from './AnnonceCard';
-import NavBar from './NavBar';
- 
-function Home() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+import { getAnnonceByrec, reset } from "../features/annonce/annonceSlice";
+import AnnonceCard from "./AnnonceCard";
+import NavBar from "./NavBar";
 
+function Home() {
   const { user } = useSelector((state) => state.auth);
 
-  const { annonces, isLoading, isError, message } =
-    useSelector((state) => state.annonces);
-
+  const { annonces, isLoading } = useSelector((state) => state.annonces);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
-     
     if (!user) {
       navigate("/login");
     }
-    console.log(user._id , 'user id') 
 
-    dispatch(getAnnonceByrec(user._id)).unwrap().then(res => console.log(res , 'ok '));
- 
-  }, [
-    user,
-    navigate,
-    dispatch,
-  
-  ]);
+    dispatch(getAnnonceByrec());
+    dispatch(reset());
+  }, [dispatch]);
+  console.log(annonces, "annonces in the com");
   return (
-
     <>
-    <NavBar/>
-<div className="container">
-  <div className="row justify-content-center">
-    <div className="col-12">
-      <div className="section-title text-center mb-4 pb-2">
-        <h4 className="title mb-4">Our Annonces</h4>
-        <p className="text-muted para-desc mx-auto mb-0">  Join us and see what's next </p>
+      <NavBar />
+      <div className='container'>
+        <div className='row justify-content-center'>
+          <div className='col-12'>
+            <div className='section-title text-center mb-4 pb-2'>
+              <h4 className='title mb-4'>Our Annonces</h4>
+
+              <p className='text-muted para-desc mx-auto mb-0'>
+                Join us and see what's next
+              </p>
+            </div>
+          </div>
+        </div>{" "}
+        <div>
+          <button type='submit    ' className='btn btn-primary btn-lg' onClick={()=>{
+            navigate('/AddAnnonce')
+          }}>
+            Add new{" "}
+          </button>
+        </div>
+        <div className='row'>
+          {annonces.length > 0 ? (
+            annonces.map((an) => <AnnonceCard key={an._id} annonce={an} />)
+          ) : (
+            <h1>no annonces yet</h1>
+          )}
+        </div>
+        {/*end col*/}
       </div>
-    </div>{/*end col*/}
-  </div>{/*end row*/}
-  <div className="row">
-    
-  {annonces.length>0 ? annonces.map((an) => (
-              
-    <AnnonceCard key={an._id}  annonce={an}/> 
-   )):(
-     <h1>no annonces yet</h1>
-   ) }
-    </div>{/*end col*/}
-  </div> 
-
-</>
-
-  )
+    </>
+  );
 }
 
-export default Home
+export default Home;

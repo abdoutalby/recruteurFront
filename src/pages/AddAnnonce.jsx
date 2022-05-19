@@ -26,9 +26,7 @@ function AddAnnonce() {
   );
 
   useEffect(() => {
-   if(isSuccess){
-       toast.success('done')
-   }
+  
    if(isError){
        toast.error(message)
    }

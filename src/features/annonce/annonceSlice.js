@@ -154,6 +154,7 @@ export const annonceSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.annonces = action.payload;
+                console.log(state.annonces, "serviceeseesds");
             })
             .addCase(getAnnonceByrec.rejected, (state, action) => {
                 state.isLoading = false;
