@@ -1,98 +1,37 @@
 import React from "react";
-import { useParams } from "react-router";
-import { getAnnonceByid } from "../features/annonce/annonceSlice";
-import { getRecruter } from "../features/recruter/recruterSlice";
+import { useParams } from "react-router"; 
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { create, reset } from "../features/Postulation/PostulationSlice";
-import { toast } from "react-toastify";
-import {get} from "../features/Postulation/qesSlice";
+import { useSelector, useDispatch } from "react-redux"; 
+import {get , reset} from "../features/Postulation/qesSlice";
 
 function Questionaire() {
 
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    q1: "",
-    q2: "",
-    q3: "",
-    q4: "",
-    q5: "",
-    q6: "",
-    q7: "",
-    q8: "",
-    q9: "",
-    q10: "",
-    q11: "",
-    q12: "",
-  });
-
-  const {
-    q1 ,
-    q2 ,
-    q3 ,
-    q4 ,
-    q5 ,
-    q6 ,
-    q7 ,
-    q8 ,
-    q9 ,
-    q10 ,
-    q11 ,
-    q12 ,
-  } = formData;
-
-  const { user } = useSelector((state) => state.auth);
+ 
+ 
 
   const { qes, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.qes
   );
 
   useEffect(() => {
-    dispatch(get(id))
-    return () => {
-      dispatch(reset());
-    };
-  }, [qes, isError, isSuccess, message, navigate, dispatch]);
+    dispatch(get(id)).unwrap().then(res =>console.log(res , 'totototo'))
+      console.log(qes , 'sstatee')
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+      return(()=>{
+        dispatch(reset())
+      })
+  }, [  navigate, dispatch]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-     
-    console.log("responses ", formData);
+ 
 
-    dispatch(create(formData))
-      .unwrap()
-      .then((data) => navigate("/"))
-      .catch((err) => toast.error(err));
-  };
-  /////
+ 
 
-  const { annonces } = useSelector((state) => state.annonces);
-  const { recruters } = useSelector((state) => state.recruters);
-
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
-
-    dispatch(getAnnonceByid(id))
-      .unwrap()
-      .then((res) => {
-        console.log(res, "gmara");
-        dispatch(getRecruter(res.recruter));
-      });
-  }, [navigate]);
-
+ 
   return (
     <>
       <NavBar />
@@ -104,7 +43,7 @@ function Questionaire() {
               <div className='card-body'>
                 <div className='row gutters'>
                   <div className='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
-                    <h6 className='mb-2 text-primary'>Questionaire</h6>
+                    <h6 className='mb-2 text-primary'>Responses</h6>
                   </div>
                   <div className='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12'>
                     <div className='form-group'>
@@ -113,7 +52,7 @@ function Questionaire() {
                         type='text'
                         className='form-control'
                         placeholder='Présentez vous….'
-                        onChange={onChange}
+                         defaultValue={qes.q1}
                         name='q1'
                       />
                     </div>
@@ -125,7 +64,8 @@ function Questionaire() {
                         type='text'
                         className='form-control'
                         placeholder='Quel est votre job de rêve ?'
-                        onChange={onChange}
+                        defaultValue={qes.q2}
+
                         name='q2'
                       />
                     </div>
@@ -136,7 +76,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q3}
+
                         name='q3'
                         placeholder='Quelles sont vos qualités et quels sont vos points faibles ?'
                       />
@@ -148,7 +89,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q4}
+
                         name='q4'
                         placeholder='Que savez-vous de notre entreprise ?'
                       />
@@ -160,7 +102,8 @@ function Questionaire() {
                       <input
                         type='url'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q5}
+
                         name='q5'
                         placeholder='En quoi le poste à pourvoir vous intéresse-t-il ?'
                       />
@@ -172,7 +115,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q6}
+
                         name='q6'
                         placeholder='Comment envisagez-vous votre carrière '
                       />
@@ -184,7 +128,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q7}
+
                         name='q7'
                         placeholder='Quelles sont vos compétences dans le domaine des langues ?'
                       />
@@ -196,7 +141,8 @@ function Questionaire() {
                       <input
                         type='url'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q8}
+
                         name='q8'
                         placeholder='Décrivez moi vos expériences professionnelles ?'
                       />
@@ -211,7 +157,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q9}
+
                         name='q9'
                         placeholder='Aimez-vous le travail en équipe ? Pour quelles raisons ?'
                       />
@@ -223,7 +170,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q10}
+
                         name='q10'
                         placeholder='Vous vous voyez où dans cinq ans ?'
                       />
@@ -235,7 +183,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q11}
+
                         name='q11'
                         placeholder='Pourquoi devrais-je vous choisir plutôt que quelqu’un d’autre '
                       />
@@ -247,7 +196,8 @@ function Questionaire() {
                       <input
                         type='text'
                         className='form-control'
-                        onChange={onChange}
+                        defaultValue={qes.q12}
+
                         name='q12'
                         placeholder='Avez-vous des questions ?'
                       />
@@ -261,9 +211,9 @@ function Questionaire() {
                         type='button'
                         id='submit'
                         name='submit'
-                        onClick={onSubmit}
+                        onClick={()=>{navigate('/MyOffres/all')}}
                         className='btn btn-primary'>
-                        envoyer 
+                        Retour 
                       </button>
                     </div>
                   </div>

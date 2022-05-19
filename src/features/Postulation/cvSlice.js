@@ -1,19 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import qesService from "./qesService";
+import CVservice from "./cvService";
 
 const initialState = {
-    qes: [],
+    cv: {},
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: "",
 };
 
-// Create
-export const create = createAsyncThunk("qes/create", async(data, thunkAPI) => {
+// Create new condidat
+export const update = createAsyncThunk("cv/update", async(Data, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        const res = await qesService.qes(data, token);
+        return await CVservice.update(Data, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -23,11 +23,11 @@ export const create = createAsyncThunk("qes/create", async(data, thunkAPI) => {
     }
 });
 
-export const get = createAsyncThunk("qes/get", async(id, thunkAPI) => {
+// get condidat by id
+export const get = createAsyncThunk("cv/get", async(Data, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token;
-        console.log(id, "idddddddd");
-        return await qesService.getqes(id, token);
+        return await CVservice.get(Data, token);
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -37,23 +37,35 @@ export const get = createAsyncThunk("qes/get", async(id, thunkAPI) => {
     }
 });
 
-export const QesSlice = createSlice({
-    name: "qes",
+export const create = createAsyncThunk("cv/create", async(Data, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await CVservice.create(Data, token);
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+export const CVslice = createSlice({
+    name: "cv",
     initialState,
     reducers: {
         reset: (state) => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(create.pending, (state) => {
+            .addCase(update.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(create.fulfilled, (state, action) => {
+            .addCase(update.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.qes.push(action.payload);
+                state.cv = action.payload;
             })
-            .addCase(create.rejected, (state, action) => {
+            .addCase(update.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -64,10 +76,22 @@ export const QesSlice = createSlice({
             .addCase(get.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                console.log(action.payload, "response from the sersevers");
-                state.qes = action.payload[0];
+                state.cv = action.payload;
             })
             .addCase(get.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(create.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(create.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.cv = action.payload;
+            })
+            .addCase(create.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
@@ -75,5 +99,5 @@ export const QesSlice = createSlice({
     },
 });
 
-export const { reset } = QesSlice.actions;
-export default QesSlice.reducer;
+export const { reset } = CVslice.actions;
+export default CVslice.reducer;

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify' ;
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {getByA , update,reset} from '../features/Postulation/PostulationSlice'
+import {  getById} from '../features/Postulation/PostulationSlice'
  
 function ConsultPost() {
     const {id}=useParams();
@@ -15,7 +15,7 @@ function ConsultPost() {
     useSelector((state) => state.postulations);
    
   useEffect(() => {
-    dispatch(getByA(id)).unwrap().then(
+    dispatch(getById(id)).unwrap().then(
       (res)=>{
      console.log(res) 
       }
@@ -63,7 +63,7 @@ if(isLoading){
                         className="form-control"
                         placeholder="Enter num cin"
 
-                        value={postulations[0]?.cin}
+                        defaultValue={postulations.cin}
                         name="cin"
                       />
                     </div>
@@ -76,7 +76,7 @@ if(isLoading){
                         className="form-control"
                         placeholder="Enter date"
                        
-                        value={postulations[0]?.datenaissance.toString()}
+                        defaultValue={postulations.datenaissance}
 
                         name="datenaissance"
                       />
@@ -91,7 +91,7 @@ if(isLoading){
                        
                         name="name"
                         placeholder="Enter name"
-                        value={postulations[0]?.name}
+                        defaultValue={postulations.name}
 
                       />
                     </div>
@@ -105,7 +105,7 @@ if(isLoading){
                        
                         name="lastname"
                         placeholder="ENter Last Name"
-                        value={postulations[0]?.lastname}
+                        defaultValue={postulations.lastname}
 
                       />
                     </div>
@@ -119,7 +119,7 @@ if(isLoading){
                        
                         name="tel"
                         placeholder="Enter tel number"
-                        value={postulations[0]?.tel}
+                        defaultValue={postulations.tel}
 
                       />
                     </div>
@@ -133,7 +133,7 @@ if(isLoading){
                         className="form-control"
                        
                         name="email"
-                        value={postulations[0]?.email}
+                        defaultValue={postulations.email}
 
                         placeholder="Enter email adresse"
                       />
@@ -155,7 +155,7 @@ if(isLoading){
                        
                         name="diplome"
                         placeholder="Enter diplome"
-                        value={postulations[0]?.diplome}
+                        defaultValue={postulations.diplome}
 
                       />
                     </div>
@@ -169,7 +169,7 @@ if(isLoading){
                        
                         name="datedep"
                         placeholder="Enter Date"
-                        value={postulations[0]?.datedep}
+                        defaultValue={postulations.datedep}
 
                       />
                     </div>
@@ -183,7 +183,7 @@ if(isLoading){
                        
                         name="exp"
                         placeholder="Enter experience month number"
-                        value={postulations[0]?.exp}
+                        defaultValue={postulations.exp}
 
                       />
                     </div>
@@ -197,7 +197,7 @@ if(isLoading){
                        
                         name="moyfe"
                         placeholder="Enter moyenne"
-                        value={postulations[0]?.moyfe}
+                        defaultValue={postulations.moyfe}
 
                       />
                     </div>
@@ -211,8 +211,11 @@ if(isLoading){
                         id="submit"
                         name="submit" 
                         className="btn btn-primary"
+                        onClick={()=>{
+                          navigate('/MyOffres/all')
+                        }}
                       >
-Update                      </button>
+Retour                      </button>
                     </div>
                   </div>
                 </div>

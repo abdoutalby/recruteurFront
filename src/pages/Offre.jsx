@@ -59,6 +59,26 @@ function Offre({ postulation }) {
                 
                navigate('/Questionaire/'+postulation._id)
               }}>
+              Questionaire{" "}
+            </button>{" "}
+
+              
+            <button
+              className='btn btn-info'
+              onClick={() => {
+                
+               navigate('/cv/'+postulation.condidat)
+              }}>
+              CV{" "}
+            </button>{" "}
+
+              
+            <button
+              className='btn btn-info'
+              onClick={() => {
+                
+               navigate('/Postulation/'+postulation._id)
+              }}>
               Consulter{" "}
             </button>{" "}
            
