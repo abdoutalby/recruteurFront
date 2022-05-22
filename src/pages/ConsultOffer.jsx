@@ -164,12 +164,12 @@ if(isLoading){
                     <div className="form-group">
                       <label htmlFor="ciTy">Date obtention</label>
                       <input
-                        type="date"
+                        type="text"
                         className="form-control"
                        
                         name="datedep"
                         placeholder="Enter Date"
-                        defaultValue={postulations.datedep}
+                         defaultValue={postulations.datedep?.toLocaleString('en-US')}
 
                       />
                     </div>
