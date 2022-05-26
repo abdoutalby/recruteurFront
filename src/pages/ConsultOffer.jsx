@@ -169,7 +169,8 @@ if(isLoading){
                        
                         name="datedep"
                         placeholder="Enter Date"
-                         defaultValue={postulations.datedep?.toLocaleString('en-US')}
+                        
+                        defaultValue={postulations.datedep?.toLocaleString('en-US')}
 
                       />
                     </div>

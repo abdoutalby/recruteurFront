@@ -30,7 +30,7 @@ function CV() {
           <div className='col-xl-8'>
             <div className='card mb-4'>
               <div className='card-header'>CV Details</div>
-             {cv[0]?.name ? (<div className='card-body' >
+             {cv?.name ? (<div className='card-body' >
                 <form>
                   <div className='mb-3'>
                     <label class='small mb-1'>Name </label>
@@ -39,7 +39,7 @@ function CV() {
                       id='inputUsername'
                       type='text'
                       
-                      value={cv[0]?.name} 
+                      value={cv?.name} 
                     />
                   </div>
 
@@ -52,7 +52,7 @@ function CV() {
                         class='form-control'
                         id='inputFirstName'
                         type='text' 
-                        value={cv[0]?.diplome} 
+                        value={cv?.diplome} 
                       />
                     </div>
                     <div className='col-md-6'>
@@ -64,7 +64,7 @@ function CV() {
                         id='inputLastName'
                         type='text'
                        
-                        value={cv[0]?.formation} 
+                        value={cv?.formation} 
                       />
                     </div>
                         <div className='col-md-6'>
@@ -76,7 +76,7 @@ function CV() {
                         id='inputLastName'
                         type='text'
                         
-                        value={cv[0]?.adress} 
+                        value={cv?.adress} 
                       />
                     </div>
                     <div className='col-md-6'>
@@ -88,7 +88,7 @@ function CV() {
                         id='inputLastName'
                         type='text'
                         
-                        value={cv[0]?.experience} 
+                        value={cv?.experience} 
                       />
                     </div>
                   </div>
@@ -102,7 +102,7 @@ function CV() {
                         id='inputOrgName'
                         type='text'
                         
-                        value={cv[0]?.langues} 
+                        value={cv?.langues} 
                       />
                     </div>
 
@@ -115,7 +115,7 @@ function CV() {
                         id='inputLocation'
                         type='text'
                       
-                        value={cv[0]?.niveau} 
+                        value={cv?.niveau} 
                       />
                     </div>
                   </div>
@@ -129,7 +129,7 @@ function CV() {
                       id='inputEmailAddress'
                       type='email'
                       
-                      value={cv[0]?.email} 
+                      value={cv?.email} 
                     />
                   </div>
 
@@ -143,7 +143,7 @@ function CV() {
                         id='inputPhone'
                         type='tel'
                      
-                        value={cv[0]?.tel} 
+                        value={cv?.tel} 
                       />
                     </div>
                     <div className='col-md-6'>
@@ -156,7 +156,7 @@ function CV() {
                         type='text'
                         name='birthday'
                       
-                        value={cv[0]?.updatedAt}
+                        value={cv?.updatedAt}
                       />
                     </div>
                   </div>

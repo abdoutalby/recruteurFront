@@ -1,11 +1,13 @@
 import React from "react";
-import { getAnnonceByrec, reset } from "../features/annonce/annonceSlice";
+import { getAnnonceByrec , getAnnonceByid,remmove,  reset } from "../features/annonce/annonceSlice";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {toast} from "react-toastify";
 function AnnonceCard({annonce}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.auth);
   const { annonces, isError } = useSelector((state) => state.annonces);
 
@@ -53,10 +55,24 @@ function AnnonceCard({annonce}) {
             <p className='text-muted mt-3 mb-0'>{annonce.salary}DT</p>
 
             <div className='mt-3'>
+              <span className='text-custom mr-3 ' onClick={()=>{
+                navigate('/Consulter/'+annonce._id)
+  }}><button className="btn btn-primary"> Consulter</button>
+                <i className='mdi mdi-chevron-right' />
+              </span>
+
               <span className='text-custom ' onClick={()=>{
-                navigate('/MyOffres/'+annonce._id)
-  }}>
-                Consulter <i className='mdi mdi-chevron-right' />
+               var answer = window.confirm('Delete Annonce ?')
+               if(answer){
+                 dispatch(remmove(annonce._id)).unwrap()
+                 .then(res =>{
+                  toast.success('annonce deleteed ') 
+                  navigate('/')})
+                 .catch(err =>{toast.error('oooops')})
+               
+               }
+  }}><button className="btn btn-danger" >  Delete  </button>
+              <i className='mdi mdi-chevron-right' />
               </span>
             </div>
           </div>

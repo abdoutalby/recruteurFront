@@ -38,11 +38,25 @@ const create = async(data, token) => {
 
     return response.data;
 };
+const getbyDiplome = async(diplome, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.get(
+        "http://localhost:5000/api/cv/diplome/" + diplome,
+        config
+    );
+    console.log(response.data, "from the api ");
+    return response.data;
+};
 
 const CVservice = {
     update,
     get,
     create,
+    getbyDiplome,
 };
 
 export default CVservice;

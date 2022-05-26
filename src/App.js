@@ -12,6 +12,8 @@ import AddAnnonce from "./pages/AddAnnonce";
 import AllOffres from './pages/allOffres'
 import Questionaire from "./pages/Questionaire";
 import CV from "./pages/CV";
+import ConsulterAnnonce from "./pages/consulterAnnonce";
+import CVS from './pages/cvs'
 
 function App() {
   return (
@@ -33,6 +35,9 @@ function App() {
           <Route path='/Postulation/:id' element={<ConsultPost />} />
           <Route path="/Questionaire/:id" element={<Questionaire />} />
           <Route path="/CV/:id" element={<CV />} />
+          <Route path="/consulter/:id" element={<ConsulterAnnonce />} />
+          
+          <Route path="/cvs/:diplome" element={<CVS />} />
         </Routes>
       </Router>
       <ToastContainer />

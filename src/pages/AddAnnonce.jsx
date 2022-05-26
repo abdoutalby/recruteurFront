@@ -42,23 +42,29 @@ function AddAnnonce() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const Data = {
-      recruter : user._id,
-      title,
-      salary,
-      specialite,
-    };
-    console.log(Data);
-    dispatch(create(Data))
-      .unwrap()
-      .then((data) => { 
-        dispatch(getAnnonceByrec(user._id))
-        toast.success('added succesfully ')
-        navigate("/");
-      })
-      .catch((err) => { 
-        toast.error(err);
-      });
+    if(!title || !salary || !specialite){
+      toast.error('please add all fields')
+    }else {
+    
+      const Data = {
+        recruter : user._id,
+        title,
+        salary,
+        specialite,
+      };
+      console.log(Data);
+      dispatch(create(Data))
+        .unwrap()
+        .then((data) => { 
+          dispatch(getAnnonceByrec(user._id))
+          toast.success('added succesfully ')
+          navigate("/");
+        })
+        .catch((err) => { 
+          toast.error(err);
+        });
+    }
+  
   };
 
  
@@ -90,7 +96,7 @@ function AddAnnonce() {
               </div>
               <div className='content-panel'>
                 <h2 className='title'>Add new Annonce </h2>
-                <form className='form-horizontal' onSubmit={onSubmit}>
+                <form className='form-horizontal'  >
                   <fieldset className='fieldset'>
                     <h3 className='fieldset-title'></h3>
 
@@ -140,11 +146,9 @@ function AddAnnonce() {
                   <hr />
                   <div className='form-group'>
                     <div className='col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0'>
-                      <input
-                        className='btn btn-primary'
-                        type='submit' 
-                         
-                      />
+                      <button  className="btn btn-success" onClick={onSubmit}>
+                        add new annonce
+                      </button>
                     </div>
                   </div>
                 </form>

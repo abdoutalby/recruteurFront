@@ -15,6 +15,17 @@ const create = async(Data, token) => {
     return response.data;
 };
 
+//update
+const update = async(data, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const response = await axios.put(`${API_URL}/${data._id}`, data, config);
+
+    return response.data;
+};
 // Get all
 const getAll = async() => {
     const response = await axios.get(API_URL + "all");
@@ -49,6 +60,7 @@ const annonceService = {
     deleteById,
     getAnnonceByid,
     getAnnonceByrec,
+    update,
 };
 
 export default annonceService;
